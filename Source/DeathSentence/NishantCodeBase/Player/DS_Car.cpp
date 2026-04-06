@@ -26,6 +26,14 @@ void ADS_Car::BeginPlay()
 		HealthComponent->OnOwnerDeath.AddDynamic(this, &ThisClass::HandleDeath);
 	}
 
+	UPrimitiveComponent* CollisionComp = Cast<UPrimitiveComponent>(GetRootComponent());
+	if (CollisionComp)
+	{
+		CollisionComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+		CollisionComp->SetNotifyRigidBodyCollision(true);
+		CollisionComp->SetCollisionResponseToAllChannels(ECR_Block);
+	}
+
 }
 
 void ADS_Car::Tick(float DeltaSeconds)
